@@ -55,11 +55,6 @@ prompt = ChatPromptTemplate.from_template(
 retriever = vectorstore.as_retriever()
 
 # Crear la cadena de QA (RetrievalQA)
-qa_chain = RetrievalQA.from_chain_type(
-    llm=llm,
-    retriever=retriever,
-    chain_type_kwargs={"prompt": prompt}
-)
 
 # Realizar una consulta
 question = "what are the oversold and overbought periods?"

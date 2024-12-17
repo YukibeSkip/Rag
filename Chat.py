@@ -1,39 +1,65 @@
-
-from langchain_core.prompts import ChatPromptTemplate
+import requests
+import PyPDF2
+from langchain_huggingface import HuggingFaceEmbeddings  # Cargar el modelo de embeddings de HuggingFace
+from langchain.text_splitter import RecursiveCharacterTextSplitter  # Usar el splitter adecuado
 from langchain_ollama.llms import OllamaLLM
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
-from langchain_core.output_parsers import StrOutputParser
-from langchain.prompts import ChatPromptTemplate
-from langchain_ollama.chat_models import ChatOllama
-from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+from langchain.schema import Document
+from langchain.prompts import PromptTemplate
+from langchain.chains import RetrievalQA
+import os
 
-embeddings = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-mpnet-base-v2")
+# Cargar el PDF y extraer el texto
+pdf_path = "/home/bigdata/Exercicios_Git/Rag/D&D5Manual.pdf"
 
-vector_store = Chroma(
-    collection_name="some_facts",
-    embedding_function=embeddings,
-    persist_directory="./chroma_some_facts"
-)
+with open(pdf_path, "rb") as file:
+    reader = PyPDF2.PdfReader(file)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text()
 
-retriever = vector_store.as_retriever()
+# Usar RecursiveCharacterTextSplitter para dividir el texto de manera eficiente
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)  # Definir el tamaño del fragmento y la superposición
+chunks = text_splitter.split_text(text)
 
-question = "Can I steal a bank?"
-docs = vector_store.similarity_search(question)
-len(docs)
-docs[0]
+print(f"Number of chunks: {len(chunks)}")
 
-template = """"Answer the question based only on the following context: {context}
-                Question: {question}"""
+# Cargar el modelo LLM de Ollama
+llm = OllamaLLM(model="llama3.2", server_url="http://localhost:11434")
 
-prompt = ChatPromptTemplate.from_template(template)
+# Cargar el modelo de embeddings de HuggingFace
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
-ollama_llm = "llama3.2"
-model_local = ChatOllama(model=ollama_llm)
+# Inicializar el vectorstore (almacen de vectores) con Chroma
+vectorstore = Chroma(persist_directory="./vectorstore", embedding_function=embedding_model)
 
-chain = ({"context": retriever, "question": RunnablePassthrough()}
-        | prompt
-        | model_local
-        | StrOutputParser())
+# Crear documentos de Langchain con los fragmentos
+documents = [Document(page_content=chunk) for chunk in chunks]
 
-chain.invoke("Can I steal a bank?")
+# Agregar documentos al vectorstore
+vectorstore.add_documents(documents)
+print("Documents added to the vector store.")
+
+# Crear el prompt para la pregunta
+prompt_template = """
+Usa el contexto a continuación para responder la pregunta del usuario:
+
+{context}
+
+Pregunta: {question}
+
+Respuesta:
+"""
+prompt = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
+
+# Crear el retriever a partir del vectorstore
+retriever = vectorstore.as_retriever()
+
+# Hacer una pregunta de ejemplo
+question = "¿Cuánto pueden medir los enanos?"
+
+# Obtener la respuesta usando el chain de QA
+retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 3})
+response = retriever.invoke(question)
+# Imprimir la respuesta
+print("Respuesta:", response)
