@@ -56,7 +56,7 @@ prompt = PromptTemplate(template=prompt_template, input_variables=["context", "q
 retriever = vectorstore.as_retriever()
 
 # Hacer una pregunta de ejemplo
-question = "¿Cuánto pueden medir los enanos?"
+question = "¿Cuánto viven los elfos?"
 
 # Obtener la respuesta usando el chain de QA
 retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 3})
