@@ -82,7 +82,7 @@ Se realiza una consulta sobre el contenido del artículo, en este caso preguntan
 
 
 ## 🤖🎲 Rag en español:
-### 📚Importación de librerías
+###  📚Importación de librerías
 `requests`: Aunque no se utiliza en este código, es una librería que permite hacer solicitudes HTTP.
 
 `PyPDF2`: Utilizada para leer y extraer texto de archivos PDF.
