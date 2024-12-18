@@ -43,13 +43,33 @@ El proyecto desarrolla diferentes sistemas rags:
 
 ###  Establecer el USER_AGENT
 Se establece una variable de entorno `USER_AGENT` para simular un navegador específico al hacer solicitudes HTTP. Esto puede ayudar a evitar bloqueos por parte del servidor.
->>os.environ["USER_AGENT"] = "mi_usuario"<<
+>>os.environ["USER_AGENT"] = "mi_usuario"
 
 ### Obtener el contenido de la página web
 -Se realiza una solicitud `GET` a la URL proporcionada, descargando el contenido HTML de la página.
 
 -Luego, se utiliza BeautifulSoup para analizar y extraer todo el texto de la página.
 
+###  Dividir el texto en fragmentos (chunks)
+El texto extraído de la página se divide en fragmentos más pequeños para facilitar su procesamiento, utilizando el `RecursiveCharacterTextSplitter`. Cada fragmento tiene un tamaño de hasta 1200 caracteres y se superpone un 10% (100 caracteres) entre ellos.
+
+
+### Crear embeddings usando HuggingFaceEmbeddings
+Se utiliza el modelo `sentence-transformers/all-MiniLM-L6-v2` de Hugging Face para crear representaciones vectoriales (embeddings) de los fragmentos de texto. Estas representaciones permiten buscar y comparar fragmentos de texto de manera eficiente.
+
+### Crear documentos con los fragmentos
+Cada fragmento de texto se convierte en un documento de la clase `Document de Langchain`. Esta clase es utilizada para almacenar el contenido de texto y las representaciones de los embeddings.
+
+### Crear un vectorstore con Chroma
+Utilizando el vectorstore `Chroma`, se almacenan los documentos y sus embeddings. Esto permite realizar búsquedas eficientes basadas en similitud de vectores.
+
+###  Definir el modelo LLM de Ollama
+Se configura un modelo de lenguaje de Ollama, denominado `llama3.2`. Este modelo se utilizará para generar respuestas a las preguntas formuladas sobre el contenido del artículo.
+
+### Crear un template de prompt para QA
+Se define una plantilla de prompt para la consulta, en la que se proporciona el contexto (el texto relevante) y la pregunta a responder.
+
+### Crear el `retriever` para la búsqueda en el vectorstore
 
 
 
