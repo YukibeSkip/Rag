@@ -133,3 +133,53 @@ Se crea un `retriever` a partir del vectorstore `Chroma`. El `retriever` es resp
 ### ☝🤓🧝‍♀️Realizar la consulta y obtener la respuesta
 Se define una pregunta de ejemplo `("¿Cuánto viven los elfos?")` y se pasa al retriever para buscar los fragmentos más relevantes. Después, se obtiene la respuesta usando el modelo LLM y se imprime el resultado.
 
+## 🤖🖥️ RagInterfaz:
+
+###  📚Importación de librerías
+`requests`: Para hacer solicitudes HTTP a la página de Wikipedia.
+
+`beautifulsoup4`: Para parsear el contenido HTML de la página de Wikipedia.
+
+`langchain_huggingface`: Para generar embeddings a partir de modelos de HuggingFace.
+
+`langchain`: Para procesamiento de texto, creación de vectores y manipulación de LLMs.
+
+`langchain_ollama`: Para usar el modelo LLM de Ollama.
+
+`gradio`: Para crear la interfaz gráfica de usuario.
+
+`chroma`: Para almacenamiento y recuperación eficiente de vectores de texto.
+
+Instalar con pip: pip install requests beautifulsoup4 langchain gradio langchain_huggingface langchain_ollama chromadb
+
+### 💀📃 Extracción de contenido de Wikipedia
+El código comienza con la solicitud HTTP para obtener el contenido de una página de Wikipedia específica (en este caso, sobre "Hades"). La página se parsea usando BeautifulSoup para extraer el texto del artículo.
+
+### 📖✏ División del texto en fragmentos
+El texto de la página se divide en fragmentos más pequeños (chunks) para que sea procesado eficientemente. Esto se hace utilizando `RecursiveCharacterTextSplitter` de LangChain, que permite dividir el texto de acuerdo a un tamaño de fragmento especificado.
+
+### 👨‍💻⛲ Generación de embeddings
+Usamos el modelo de embeddings de HuggingFace (`sentence-transformers/all-MiniLM-L6-v2`) para generar representaciones vectoriales de los fragmentos de texto. Estos embeddings facilitan la búsqueda y recuperación de información relevante cuando se hace una pregunta.
+
+### 📃📃 Creación de un VectorStore
+Se utiliza Chroma, una biblioteca para almacenamiento de vectores, para guardar los documentos procesados y sus embeddings. Esto permite realizar búsquedas eficientes para obtener la información relevante cuando el usuario hace una pregunta.
+
+### ⚙🔥🦙 Configurar el modelo de lenguaje de Ollama
+El modelo LLM de Ollama se configura para generar respuestas a las preguntas del usuario utilizando el contenido recuperado.
+
+### 🤖💀 Definición del prompt y creación de la cadena de Q&A
+Usamos `ChatPromptTemplate` para definir un prompt que guíe al modelo en la generación de respuestas basadas en el contexto del artículo. Luego, creamos una cadena de Q&A utilizando `RetrievalQA` de LangChain
+
+### 🖥️🐓 Interfaz de usuario con Gradio
+Finalmente, creamos una interfaz de usuario utilizando Gradio, donde los usuarios pueden ingresar preguntas y recibir respuestas generadas por el modelo LLM.
+
+### ⚙️💀 Ejecución
+Para ejecutar el proyecto, simplemente corre el script de Python. Se abrirá una interfaz web de Gradio donde podrás hacer preguntas sobre el artículo de Wikipedia.
+
+### 👁️‼️ Tener en cuenta:
+El servidor de Ollama debe estar en ejecución en http://localhost:11434. Asegúrate de que el servidor esté configurado y en funcionamiento antes de ejecutar el código.
+
+Es necesario contar con acceso a internet para descargar el contenido de Wikipedia y los modelos de HuggingFace.
+
+
+
