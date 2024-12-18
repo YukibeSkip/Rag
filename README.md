@@ -177,7 +177,7 @@ Finalmente, creamos una interfaz de usuario utilizando Gradio, donde los usuario
 Para ejecutar el proyecto, simplemente corre el script de Python. Se abrirá una interfaz web de Gradio donde podrás hacer preguntas sobre el artículo de Wikipedia.
 
 ### 👁️‼️ Tener en cuenta:
-El servidor de Ollama debe estar en ejecución en http://localhost:11434. Asegúrate de que el servidor esté configurado y en funcionamiento antes de ejecutar el código.
+El servidor de Ollama debe estar en ejecución en *localhost:11434*. Asegúrate de que el servidor esté configurado y en funcionamiento antes de ejecutar el código.
 
 Es necesario contar con acceso a internet para descargar el contenido de Wikipedia y los modelos de HuggingFace.
 
