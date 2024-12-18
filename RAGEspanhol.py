@@ -7,7 +7,7 @@ from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 
 # Cargar el PDF y extraer el texto
-pdf_path = "/home/bigdata/Exercicios_Git/Rag/D&D5Manual.pdf"
+pdf_path = "D&D5Manual.pdf"
 
 with open(pdf_path, "rb") as file:
     reader = PyPDF2.PdfReader(file)
