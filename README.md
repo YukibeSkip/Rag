@@ -194,7 +194,18 @@ Instalar con pip: pip install pymongo langchain_huggingface mongo-atlas-vector-s
 
 ### 🍃🔌 Conexión a MongoDB Atlas
 El código establece una conexión a una base de datos MongoDB Atlas utilizando la URL de conexión proporcionada. Se utiliza el cliente de `MongoClient` de pymongo para conectarse a MongoDB.
+ 
+### ⚙️🍃 Configuración de la base de datos y colección
+Se establece la base de datos y la colección de MongoDB donde se almacenarán los documentos y sus embeddings. Los valores de `DB_NAME` y `COLLECTION_NAME` pueden ser personalizados.
 
-### ⚙️
+### 🤗⛲ Inicialización de los embeddings de HuggingFace
+Se inicializa un modelo de embeddings de HuggingFace usando `sentence-transformers/all-MiniLM-L6-v2`. Este modelo transforma el texto en representaciones vectoriales que permiten la búsqueda semántica en la base de datos.
 
+### ⚙️📚Configuración de la búsqueda vectorial en MongoDB Atlas
+El código configura MongoDB Atlas para realizar búsquedas vectoriales utilizando el índice de búsqueda en el vector. Se especifica que se utilizará la función de similitud coseno para medir la relevancia entre los vectores.
+
+### 🔎🕵️ Uso del sistema de búsqueda
+Una vez configurado, puedes cargar documentos en la colección y usar la búsqueda vectorial para encontrar documentos relevantes basados en la similitud de texto. La base de datos almacenará tanto los documentos originales como sus representaciones vectoriales para optimizar las búsquedas.
+
+**El resto del codigo es igual que el documento de Rag y RAGespañol**
 
