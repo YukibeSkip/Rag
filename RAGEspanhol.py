@@ -1,4 +1,3 @@
-import requests
 import PyPDF2
 from langchain_huggingface import HuggingFaceEmbeddings  # Cargar el modelo de embeddings de HuggingFace
 from langchain.text_splitter import RecursiveCharacterTextSplitter  # Usar el splitter adecuado
@@ -6,8 +5,6 @@ from langchain_ollama.llms import OllamaLLM
 from langchain_chroma import Chroma
 from langchain.schema import Document
 from langchain.prompts import PromptTemplate
-from langchain.chains import RetrievalQA
-import os
 
 # Cargar el PDF y extraer el texto
 pdf_path = "/home/bigdata/Exercicios_Git/Rag/D&D5Manual.pdf"
