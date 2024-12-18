@@ -14,6 +14,11 @@ El proyecto desarrolla diferentes sistemas rags:
 -install gradio
 
 -install bs4
+## ☝ Antes de empezar
+Antes hay que levantar Ollama en docker:
+-docker network create ollama_network
+
+-docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama --net=ollama_network ollama/ollama
 
 # 📢Descripción de los scripts:
 
@@ -70,6 +75,12 @@ Se configura un modelo de lenguaje de Ollama, denominado `llama3.2`. Este modelo
 Se define una plantilla de prompt para la consulta, en la que se proporciona el contexto (el texto relevante) y la pregunta a responder.
 
 ### Crear el `retriever` para la búsqueda en el vectorstore
+El `retriever` se utiliza para buscar documentos en el vectorstore. En este caso, se busca el documento más relevante a partir de la similitud de los embeddings. Se configuran los parámetros de búsqueda para recuperar los 3 fragmentos más relevantes `(k=3)`.
+
+### Realizar la consulta y obtener la respuesta
+Se realiza una consulta sobre el contenido del artículo, en este caso preguntando por los períodos de sobreventa y sobrecompra (usando una pregunta específica). El retriever obtiene los fragmentos más relevantes y genera una respuesta.
+
+
 
 
 
