@@ -106,7 +106,7 @@ Se realiza una consulta sobre el contenido del artículo, en este caso preguntan
 ### 📓🎲Leer y extraer texto del archivo PDF
 El código abre un archivo PDF ubicado en la ruta `pdf_path` y extrae el texto de cada una de sus páginas utilizando `PyPDF2`. El texto extraído se guarda en una variable `text`.
 
-### ### 📖✏Dividir el texto en fragmentos (chunks)
+### 📖✏Dividir el texto en fragmentos (chunks)
 El texto extraído del PDF se divide en fragmentos más pequeños utilizando `RecursiveCharacterTextSplitter`. Cada fragmento tiene un tamaño máximo de 500 caracteres y se superpone un 10% (50 caracteres) con el fragmento anterior.
 
 ### ⚙🔥🦙 Configurar el modelo de lenguaje de Ollama
