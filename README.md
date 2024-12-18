@@ -33,7 +33,7 @@ El proyecto desarrolla diferentes sistemas rags:
 
 ###  Establecer el USER_AGENT
 Se establece una variable de entorno `USER_AGENT` para simular un navegador específico al hacer solicitudes HTTP. Esto puede ayudar a evitar bloqueos por parte del servidor.
->> os.environ["USER_AGENT"] = "mi_usuario"
+>>os.environ["USER_AGENT"] = "mi_usuario"
 
 ### Obtener el contenido de la página web
 -Se realiza una solicitud `GET` a la URL proporcionada, descargando el contenido HTML de la página.
