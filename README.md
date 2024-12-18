@@ -16,6 +16,7 @@ El proyecto desarrolla diferentes sistemas rags:
 -install bs4
 ## ☝ Antes de empezar
 Antes hay que levantar Ollama en docker:
+
 -docker network create ollama_network
 
 -docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama --net=ollama_network ollama/ollama
