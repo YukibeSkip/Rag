@@ -177,9 +177,24 @@ Finalmente, creamos una interfaz de usuario utilizando Gradio, donde los usuario
 Para ejecutar el proyecto, simplemente corre el script de Python. Se abrirá una interfaz web de Gradio donde podrás hacer preguntas sobre el artículo de Wikipedia.
 
 ### 👁️‼️ Tener en cuenta:
-El servidor de Ollama debe estar en ejecución en *localhost:11434*. Asegúrate de que el servidor esté configurado y en funcionamiento antes de ejecutar el código.
+El servidor de Ollama debe estar en ejecución en `localhost:11434`. Asegúrate de que el servidor esté configurado y en funcionamiento antes de ejecutar el código.
 
 Es necesario contar con acceso a internet para descargar el contenido de Wikipedia y los modelos de HuggingFace.
 
+## 🍃🤖 RagMongo:
+
+###  📚Importación de librerías
+`pymongo`: Para conectarse y trabajar con MongoDB Atlas.
+
+`langchain_huggingface`: Para generar embeddings de texto utilizando modelos de HuggingFace.
+
+`mongo-atlas-vector-search`: Para habilitar las capacidades de búsqueda vectorial en MongoDB Atlas.
+
+Instalar con pip: pip install pymongo langchain_huggingface mongo-atlas-vector-search
+
+### 🍃🔌 Conexión a MongoDB Atlas
+El código establece una conexión a una base de datos MongoDB Atlas utilizando la URL de conexión proporcionada. Se utiliza el cliente de `MongoClient` de pymongo para conectarse a MongoDB.
+
+### ⚙️
 
 
