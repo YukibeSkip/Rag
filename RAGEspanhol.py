@@ -7,7 +7,7 @@ from langchain.schema import Document
 from langchain.prompts import PromptTemplate
 
 # Cargar el PDF y extraer el texto
-pdf_path = "/home/bigdata/Exercicios_Git/Rag/D&D5Manual.pdf"
+pdf_path = "D&D5Manual.pdf"
 
 with open(pdf_path, "rb") as file:
     reader = PyPDF2.PdfReader(file)
@@ -25,7 +25,7 @@ print(f"Number of chunks: {len(chunks)}")
 llm = OllamaLLM(model="llama3.2", server_url="http://localhost:11434")
 
 # Cargar el modelo de embeddings de HuggingFace
-embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+embedding_model = HuggingFaceEmbeddings(model_name="jaimevera1107/all-MiniLM-L6-v2-similarity-es")
 
 # Inicializar el vectorstore (almacen de vectores) con Chroma
 vectorstore = Chroma(persist_directory="./vectorstore", embedding_function=embedding_model)
